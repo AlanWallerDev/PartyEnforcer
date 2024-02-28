@@ -47,13 +47,6 @@ class Bot(commands.Bot):
             return
         await self.handle_commands(message)
 
-    @commands.command(name='hello')
-    async def hello_command(self, ctx):
-        await ctx.send(f'Hello {ctx.author.name}!')
-
- 
-
-
 
     @commands.command(name='wall')
     async def wall_command(self, ctx, *, username: str = None):
@@ -91,7 +84,19 @@ class Bot(commands.Bot):
 
         # Respond with the user's wall stats
         await ctx.send(f"{target_user} has gotten the wall {user_count} times.")
-
+    @commands.command(name='help')
+    async def commands_command(self, ctx):
+        # Getting a list of all command names
+        command_names = [command.name for command in self.commands.values()]
+        
+        # Sorting the list of command names for better readability
+        command_names.sort()
+        
+        # Creating a string that lists all the command names, separated by commas
+        commands_str = ', '.join(command_names)
+        
+        # Sending the list of commands in the chat
+        await ctx.send(f"Available commands: {commands_str}")
 
 if __name__ == "__main__":
     try:
